@@ -66,7 +66,10 @@ public class GestorListaCompra {
                 case 5 -> {
                 	// Cambio en vaciarLista en develop
                 	public static void vaciarLista() {
-                	    System.out.println("Vaciar lista desde develop");
+                		// Dentro de vaciarLista
+                		System.out.println("Mensaje conflictivo desde feature/conflict-test");
+
+                		System.out.println("Vaciar lista desde develop");
                 	    for (int i = 0; i < numProductos; i++) {
                 	        lista[i] = null;
                 	    }
