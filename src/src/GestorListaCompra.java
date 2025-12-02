@@ -137,11 +137,14 @@ public class GestorListaCompra {
     /**
      * Vacía la lista de productos y reinicia el contador.
      */
-   /** public static void vaciarLista() {
-        for (int i = 0; i < contador; i++) {
-            lista[i] = null;
-        }
-        contador = 0;
+   /// Cambio en vaciarLista en release/v01
+public static void vaciarLista() {
+    System.out.println("Vaciar lista desde release/v01");
+    for (int i = 0; i < numProductos; i++) {
+        lista[i] = null;
     }
+    numProductos = 0;
+}
+
 }
 */
