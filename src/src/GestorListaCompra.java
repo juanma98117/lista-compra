@@ -64,12 +64,15 @@ public class GestorListaCompra {
                     for (String item : l) System.out.println(item);
                 }
                 case 5 -> {
-                    vaciarLista();
-                    System.out.println("Lista vaciada.");
-                }
-                case 6 -> System.out.println("Saliendo...");
-                default -> System.out.println("Opción inválida.");
-            }
+                	// Cambio en vaciarLista en develop
+                	public static void vaciarLista() {
+
+                	    for (int i = 0; i < numProductos; i++) {
+                	        lista[i] = null;
+                	    }
+                	    numProductos = 0;
+                	}
+
 
         } while (opcion != 6);
 
