@@ -129,11 +129,11 @@ public class GestorListaCompra {
      *
      * @return array de Strings con los productos almacenados
      */
-    public static String[] obtenerLista() {
+   /** public static String[] obtenerLista() {
         String[] copia = new String[contador];
         System.arraycopy(lista, 0, copia, 0, contador);
         return copia;
-    }
+    }*/
 
     /**
      * Vacía la lista de productos y reinicia el contador.
