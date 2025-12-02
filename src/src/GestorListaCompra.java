@@ -51,13 +51,13 @@ public class GestorListaCompra {
                     if (eliminarProducto(p)) System.out.println("Producto eliminado.");
                     else System.out.println("No se encontró el producto.");
                 }
-                case 3 -> {
+           /**     case 3 -> {
                     System.out.print("Introduce el producto a buscar: ");
                     String p = sc.nextLine();
                     int pos = buscarProducto(p);
                     if (pos != -1) System.out.println("Producto encontrado en posición: " + pos);
                     else System.out.println("No se encontró el producto.");
-                }
+                }*/
                 case 4 -> {
                     String[] l = obtenerLista();
                     System.out.println("Lista completa:");
@@ -115,7 +115,7 @@ public class GestorListaCompra {
      * @param producto producto que se desea buscar
      * @return índice del producto si se encuentra, o -1 si no existe
      */
-    public static int buscarProducto(String producto) {
+   /** public static int buscarProducto(String producto) {
         for (int i = 0; i < contador; i++) {
             if (lista[i].equalsIgnoreCase(producto)) {
                 return i;
@@ -123,7 +123,7 @@ public class GestorListaCompra {
         }
         return -1;
     }
-
+*/
     /**
      * Devuelve una copia exacta de todos los productos actuales de la lista.
      *
