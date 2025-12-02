@@ -134,14 +134,16 @@ public class GestorListaCompra {
         System.arraycopy(lista, 0, copia, 0, contador);
         return copia;
     }
+}
 
     /**
      * Vacía la lista de productos y reinicia el contador.
      */
-    public static void vaciarLista() {
+   /** public static void vaciarLista() {
         for (int i = 0; i < contador; i++) {
             lista[i] = null;
         }
         contador = 0;
     }
 }
+*/
