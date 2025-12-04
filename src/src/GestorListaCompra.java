@@ -3,109 +3,45 @@ package src;
 import java.util.Scanner;
 
 /**
- * Clase que permite gestionar una lista de la compra mediante operaciones
- * como añadir, eliminar, buscar, mostrar o vaciar productos.
+ * GestorListaCompra
  * 
- * La lista se almacena en un array de Strings con un máximo de 50 elementos.
+ * Programa que permite gestionar una lista de la compra con un array de String.
+ * Funcionalidades: añadir, eliminar, buscar, mostrar lista completa y vaciar lista.
  */
 public class GestorListaCompra {
 
-    /** Array donde se almacenan los productos de la lista. */
-    private static String[] lista = new String[50];
+    private static final int MAX_PRODUCTOS = 50;
+    private static String[] lista = new String[MAX_PRODUCTOS];
+    private static int numProductos = 0;
 
-    /** Número actual de productos almacenados en la lista. */
-    private static int contador = 0;
-
-    /**
-     * Método principal que muestra el menú y permite al usuario interactuar
-     * con la lista de la compra.
-     * 
-     * @param args argumentos de ejecución (no utilizados)
-     */
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int opcion;
-
-        do {
-            System.out.println("=== Lista de la Compra ===");
-            System.out.println("1. Añadir producto");
-            System.out.println("2. Eliminar producto");
-            System.out.println("3. Buscar producto");
-            System.out.println("4. Mostrar lista completa");
-            System.out.println("5. Vaciar lista");
-            System.out.println("6. Salir");
-            System.out.print("Elige una opción: ");
-            opcion = sc.nextInt();
-            sc.nextLine(); // Limpia buffer
-
-            switch (opcion) {
-                case 1 -> {
-                    System.out.print("Introduce el producto a añadir: ");
-                    String p = sc.nextLine();
-                    if (addProducto(p)) System.out.println("Producto añadido.");
-                    else System.out.println("La lista está llena.");
-                }
-                case 2 -> {
-                    System.out.print("Introduce el producto a eliminar: ");
-                    String p = sc.nextLine();
-                    if (eliminarProducto(p)) System.out.println("Producto eliminado.");
-                    else System.out.println("No se encontró el producto.");
-                }
-           /**     case 3 -> {
-                    System.out.print("Introduce el producto a buscar: ");
-                    String p = sc.nextLine();
-                    int pos = buscarProducto(p);
-                    if (pos != -1) System.out.println("Producto encontrado en posición: " + pos);
-                    else System.out.println("No se encontró el producto.");
-                }*/
-                case 4 -> {
-                    String[] l = obtenerLista();
-                    System.out.println("Lista completa:");
-                    for (String item : l) System.out.println(item);
-                }
-                case 5 -> {
-                	// Cambio en vaciarLista en develop
-                	public static void vaciarLista() {
-
-                	    for (int i = 0; i < numProductos; i++) {
-                	        lista[i] = null;
-                	    }
-                	    numProductos = 0;
-                	}
-
-
-        } while (opcion != 6);
-
-        sc.close();
-    }
+    private static Scanner scan = new Scanner(System.in);
 
     /**
-     * Añade un producto al array si hay espacio disponible.
-     *
-     * @param producto producto que se desea añadir a la lista
-     * @return true si el producto se añadió correctamente, false si la lista está llena
+     * Añade un producto a la lista
+     * @param producto Nombre del producto a añadir
+     * @return true si se añadió correctamente, false si la lista está llena
      */
     public static boolean addProducto(String producto) {
-        if (contador < lista.length) {
-            lista[contador++] = producto;
+        if (numProductos < MAX_PRODUCTOS) {
+            lista[numProductos++] = producto;
             return true;
         }
         return false;
     }
 
     /**
-     * Elimina un producto de la lista, desplazando los elementos restantes.
-     *
-     * @param producto producto que se desea eliminar de la lista
-     * @return true si el producto existía y fue eliminado, false en caso contrario
+     * Elimina un producto de la lista
+     * @param producto Nombre del producto a eliminar
+     * @return true si se eliminó, false si no se encontró
      */
     public static boolean eliminarProducto(String producto) {
-        for (int i = 0; i < contador; i++) {
+        for (int i = 0; i < numProductos; i++) {
             if (lista[i].equalsIgnoreCase(producto)) {
-                for (int j = i; j < contador - 1; j++) {
+                // mover los elementos hacia atrás
+                for (int j = i; j < numProductos - 1; j++) {
                     lista[j] = lista[j + 1];
                 }
-                lista[--contador] = null;
+                lista[--numProductos] = null;
                 return true;
             }
         }
@@ -113,38 +49,125 @@ public class GestorListaCompra {
     }
 
     /**
-     * Busca un producto en la lista y devuelve su índice.
-     *
-     * @param producto producto que se desea buscar
-     * @return índice del producto si se encuentra, o -1 si no existe
+     * Busca un producto en la lista
+     * @param producto Nombre del producto a buscar
+     * @return posición del producto (0 a numProductos-1), -1 si no se encuentra
      */
-   /** public static int buscarProducto(String producto) {
-        for (int i = 0; i < contador; i++) {
+    public static int buscarProducto(String producto) {
+        for (int i = 0; i < numProductos; i++) {
             if (lista[i].equalsIgnoreCase(producto)) {
                 return i;
             }
         }
         return -1;
     }
-*/
-    /**
-     * Devuelve una copia exacta de todos los productos actuales de la lista.
-     *
-     * @return array de Strings con los productos almacenados
-     */
-   /** public static String[] obtenerLista() {
-        String[] copia = new String[contador];
-        System.arraycopy(lista, 0, copia, 0, contador);
-        return copia;
 
     /**
-     * Vacía la lista de productos y reinicia el contador.
+     * Obtiene la lista completa de productos
+     * @return array de Strings con los productos añadidos
      */
+    public static String[] obtenerLista() {
+        String[] copia = new String[numProductos];
+        System.arraycopy(lista, 0, copia, 0, numProductos);
+        return copia;
+    }
+
+    /**
+     * Vacía la lista de productos
+     */
+
    /** public static void vaciarLista() {
         for (int i = 0; i < contador; i++) {
             lista[i] = null;
         }
         contador = 0;
     }
+=======
+    public static void vaciarLista() {
+        for (int i = 0; i < numProductos; i++) {
+            lista[i] = null;
+        }
+        numProductos = 0;
+    }
+
+    /**
+     * Método principal con menú de opciones
+     */
+    public static void main(String[] args) {
+        boolean salir = false;
+
+        while (!salir) {
+            System.out.println("\n=== Lista de la Compra ===");
+            System.out.println("1. Añadir producto");
+            System.out.println("2. Eliminar producto");
+            System.out.println("3. Buscar producto");
+            System.out.println("4. Mostrar lista completa");
+            System.out.println("5. Vaciar lista");
+            System.out.println("6. Salir");
+            System.out.print("Elige una opción: ");
+
+            String opcion = scan.nextLine();
+
+            switch (opcion) {
+                case "1":
+                    System.out.print("Introduce el nombre del producto: ");
+                    String prodAdd = scan.nextLine();
+                    if (addProducto(prodAdd)) {
+                        System.out.println("Producto añadido correctamente.");
+                    } else {
+                        System.out.println("Lista llena, no se puede añadir.");
+                    }
+                    break;
+                case "2":
+                    System.out.print("Introduce el nombre del producto a eliminar: ");
+                    String prodDel = scan.nextLine();
+                    if (eliminarProducto(prodDel)) {
+                        System.out.println("Producto eliminado correctamente.");
+                    } else {
+                        System.out.println("Producto no encontrado.");
+                    }
+                    break;
+                case "3":
+                    System.out.print("Introduce el nombre del producto a buscar: ");
+                    String prodBus = scan.nextLine();
+                    int pos = buscarProducto(prodBus);
+                    if (pos != -1) {
+                        System.out.println("Producto encontrado en la posición " + pos);
+                    } else {
+                        System.out.println("Producto no encontrado.");
+                    }
+                    break;
+                case "4":
+                    String[] listaActual = obtenerLista();
+                    if (listaActual.length == 0) {
+                        System.out.println("La lista está vacía.");
+                    } else {
+                        System.out.println("Lista completa:");
+                        for (String p : listaActual) {
+                            System.out.println("- " + p);
+                        }
+                    }
+                    break;
+                case "5":
+                    vaciarLista();
+                    System.out.println("Lista vaciada correctamente.");
+                    break;
+                case "6":
+                    salir = true;
+                    System.out.println("Saliendo del programa...");
+                    break;
+                default:
+                    System.out.println("Opción no válida. Intenta de nuevo.");
+                    break;
+            }
+        }
+
+        scan.close();
+    }
+
+	private static void vaciarLista() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
-*/
